@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <title>Image Classifier</title>
+</head>
+<body>
+    <h1>Image Classifier</h1>
+    <form enctype="multipart/form-data" action="/predict" method="post">
+        <input type="file" name="image">
+        <br><br>
+        <input type="submit" value="Predict">
+    </form>
+    <br><br>
+    <div id="prediction"></div>
+    <script>
+        // Add JavaScript code to display the prediction result
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            const predictionDiv = document.querySelector('#prediction');
+            predictionDiv.textContent = `Prediction: ${result.prediction}`;
+        });
+    </script>
+</body>
+</html>

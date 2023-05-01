@@ -1,11 +1,10 @@
-from flask import Flask, request, jsonify
-#from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from flask import Flask, request, jsonify, render_template
 import torch
 from PIL import Image
 import torchvision.transforms as transforms
 import numpy as np
 from transformers import AutoFeatureExtractor, ResNetForImageClassification
-
+import os
 
 app = Flask(__name__)
 
@@ -22,6 +21,7 @@ model.eval()
 # Define a Flask API route to accept images
 @app.route('/predict', methods=['POST'])
 def predict():
+    print('Received request for prediction')
     # Get the image from the request
     image_file = request.files['image']
     image = Image.open(image_file)
@@ -45,6 +45,8 @@ def predict():
         probabilities = torch.softmax(logits, dim=1)
         predicted_class = torch.argmax(probabilities, dim=1).item()
 
+    print(f'Predicted class: {predicted_class}')
+
     # Return the prediction to the user
     return jsonify({'prediction': predicted_class})
 
@@ -52,7 +54,6 @@ def predict():
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)

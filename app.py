@@ -22,11 +22,19 @@ model.eval()
 @app.route('/predict', methods=['POST'])
 def predict():
     print('Received request for prediction')
+
+    # show the image that the user has sent
+    print(request.files['image'])
+
     # Get the image from the request
     image_file = request.files['image']
     image = Image.open(image_file)
 
+
+    image = image.resize((224, 224))
     inputs = feature_extractor(image, return_tensors="pt")
+
+
 
     with torch.no_grad():
         logits = model(**inputs).logits
@@ -36,7 +44,8 @@ def predict():
     print(f'Predicted class: {model.config.id2label[predicted_label]}')
 
     # Return the prediction to the user
-    return jsonify({'prediction': model.config.id2label[predicted_label]})
+    #return jsonify({'prediction': model.config.id2label[predicted_label]})
+    return model.config.id2label[predicted_label]
 
 # Define a Flask API route to serve the HTML file
 @app.route('/')

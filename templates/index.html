@@ -1,31 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Image Classifier</title>
+	<title>Image Classifier</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+		
+		h1 {
+			color: #333;
+		}
+		
+		.container {
+			margin: 50px auto;
+			width: 600px;
+			background-color: #fff;
+			border-radius: 10px;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+		
+		.input-label {
+			display: block;
+			margin-bottom: 10px;
+			font-size: 20px;
+			color: #333;
+		}
+		
+		.input-field {
+			display: block;
+			margin-bottom: 20px;
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			color: #333;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		}
+		
+		.predict-button {
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 10px 20px;
+			font-size: 18px;
+			cursor: pointer;
+			transition: background-color 0.2s ease-in-out;
+		}
+		
+		.predict-button:hover {
+			background-color: #444;
+		}
+		
+		.result {
+			margin-top: 20px;
+			font-size: 24px;
+			color: #333;
+		}
+		
+		.image-preview {
+			max-width: 100%;
+			max-height: 300px;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		}
+	</style>
 </head>
 <body>
-    <h1>Image Classifier</h1>
-    <form enctype="multipart/form-data" action="/predict" method="post">
-        <input type="file" name="image">
-        <br><br>
-        <input type="submit" value="Predict">
-    </form>
-    <br><br>
-    <div id="prediction"></div>
-    <script>
-        // Add JavaScript code to display the prediction result
-        const form = document.querySelector('form');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            const response = await fetch('/predict', {
-                method: 'POST',
-                body: formData
-            });
-            const result = await response.json();
-            const predictionDiv = document.querySelector('#prediction');
-            predictionDiv.textContent = `Prediction: ${result.prediction}`;
-        });
-    </script>
+	<h1>Image Classifier</h1>
+	<div class="container">
+		<form method="POST" action="{{ url_for('predict') }}" enctype="multipart/form-data">
+			<label class="input-label" for="image-input">Select an image:</label>
+			<input class="input-field" type="file" name="image" id="image-input">
+			<button class="predict-button" type="submit">Predict</button>
+		</form>
+
+        {% if result %}
+        <input type="hidden" name="prediction" value="{{ prediction }}">
+        {% endif %}
+
+        
+	</div>
 </body>
 </html>

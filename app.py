@@ -26,29 +26,17 @@ def predict():
     image_file = request.files['image']
     image = Image.open(image_file)
 
-    # Process the image to match the input format of the model
-    transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(
-            mean=[0.485, 0.456, 0.406],
-            std=[0.229, 0.224, 0.225]
-        )
-    ])
-    image_tensor = transform(image).unsqueeze(0)
+    inputs = feature_extractor(image, return_tensors="pt")
 
-    # Make a prediction using the pre-trained model
     with torch.no_grad():
-        outputs = model(image_tensor)
-        logits = outputs.logits
-        probabilities = torch.softmax(logits, dim=1)
-        predicted_class = torch.argmax(probabilities, dim=1).item()
+        logits = model(**inputs).logits
 
-    print(f'Predicted class: {predicted_class}')
+    # model predicts one of the 1000 ImageNet classes
+    predicted_label = logits.argmax(-1).item()
+    print(f'Predicted class: {model.config.id2label[predicted_label]}')
 
     # Return the prediction to the user
-    return jsonify({'prediction': predicted_class})
+    return jsonify({'prediction': model.config.id2label[predicted_label]})
 
 # Define a Flask API route to serve the HTML file
 @app.route('/')

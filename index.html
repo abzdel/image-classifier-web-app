@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Recognition App</title>
+</head>
+<body>
+    <h1>Image Recognition App</h1>
+    <form enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <input type="button" value="Predict" onclick="predict()">
+    </form>
+    <div id="prediction"></div>
+    <script>
+        function predict() {
+            // Get the selected image
+            var image = document.getElementsByName("image")[0].files[0];
+
+            // Create a new form data object and append the image
+            var formData = new FormData();
+            formData.append("image", image);
+
+            // Send a POST request to the Flask API
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/predict", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Display the prediction returned by the Flask API
+                    var prediction = JSON.parse(xhr.responseText).prediction;
+                    document.getElementById("prediction").innerHTML = "Prediction: " + prediction;
+                }
+            };
+            xhr.send(formData);
+        }
+   

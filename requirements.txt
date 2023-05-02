@@ -6,3 +6,5 @@ black
 black[jupyter]
 pylint
 pytest
+pillow
+torch

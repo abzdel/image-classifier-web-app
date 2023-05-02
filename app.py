@@ -18,6 +18,12 @@ session = boto3.Session(
 
 client = boto3.client("lambda", region_name="us-east-1")
 
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route("/", methods=["GET", "POST"])
 def predict():
@@ -25,6 +31,11 @@ def predict():
         print("Classifying image...")
         # Read the image file from the request
         image_file = request.files["image"]
+
+        # Check if file is a valid image
+        if not allowed_file(image_file.filename):
+            return "Invalid file type"
+        
         image_data = image_file.read()
 
         # Encode the image data in base64 format

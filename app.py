@@ -7,10 +7,22 @@ import io
 from PIL import Image
 
 
+
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+# Get AWS credentials from environment variables
+aws_access_key_id = os.environ['AWS_ACCESS']
+aws_secret_access_key = os.environ['AWS_SECRET']
 
+# Create a new session using the credentials
+session = boto3.Session(
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key
+)
+
+client = boto3.client('lambda' , region_name='us-east-1')
+
+@app.route('/', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
 
@@ -28,7 +40,6 @@ def predict():
         }
 
         # Invoke the Lambda function
-        client = boto3.client('lambda')
         response = client.invoke(
             FunctionName='classify',
             Payload=json.dumps(event)

@@ -11,3 +11,5 @@ format:
 
 check:
 	pytest test_app.py
+
+all: install lint check format

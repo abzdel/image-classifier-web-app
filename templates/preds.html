@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Classification Results</title>
+  </head>
+  <body>
+    <h1>Image Classification Results</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Label</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in results %}
+        <tr>
+          <td>{{ item.label }}</td>
+          <td>{{ item.score }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

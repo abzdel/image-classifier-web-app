@@ -37,10 +37,14 @@ def predict():
         # Parse the response from the Lambda function
         response_dict = json.loads(response['Payload'].read().decode('utf-8'))
         #predictions = response_dict.get('predictions')
+        predictions = json.loads(response_dict.get('body'))
 
         
 
-        return json.loads(response_dict.get('body'))
+        #return json.loads(response_dict.get('body'))
+        return render_template('preds.html', results=predictions)
+        #return render_template('preds.html', results=response_dict.get('body'))
+
 
     # render the home template for GET requests
     return render_template('index.html')

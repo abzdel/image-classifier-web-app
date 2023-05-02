@@ -17,10 +17,5 @@ response = client.invoke(
     Payload=json.dumps(event)
 )
 
-# response = requests.post(
-#     "https://bpmy4zne6hobe2ic7rezjixlb40ercvc.lambda-url.us-east-1.on.aws/",
-#     json=event
-# )
-
-# Print the response from the lambda function
-print(response["Payload"].read().decode("utf-8"))
+response_dict = json.loads(response["Payload"].read().decode("utf-8"))
+print(json.loads(response_dict.get('body')))

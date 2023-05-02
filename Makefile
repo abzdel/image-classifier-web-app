@@ -5,6 +5,5 @@ install-aws:
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 	unzip awscliv2.zip
 install:	
-	sudo ./aws/install
 	python -m pip install --upgrade pip && \
 		pip install -r requirements.txt

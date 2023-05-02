@@ -1,13 +1,20 @@
 import base64
+import json
+import boto3
+import os
 
-# Read the image file in binary mode
-with open('tiger.jpg', 'rb') as f:
-    image_data = f.read()
+with open("tiger.jpg", "rb") as image_file:
+    encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
 
-# Encode the image data as base64
-base64_data = base64.b64encode(image_data).decode('utf-8')
+# Create a test event
+event = {"image": encoded_image}
 
+# Invoke the lambda function
+client = boto3.client("lambda")
+response = client.invoke(
+    FunctionName=os.environ['LAMBDA_NAME'],
+    Payload=json.dumps(event)
+)
 
-# save to txt file
-with open('tiger.txt', 'w') as f:
-    f.write(base64_data)
+# Print the response from the lambda function
+print(response["Payload"].read().decode("utf-8"))

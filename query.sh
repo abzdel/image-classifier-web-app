@@ -21,8 +21,8 @@ endpt_temp=$(echo $endpt | tr -d '"') # remove quotes for sagemaker invocation
 echo "invoking endpoint..."
 aws sagemaker-runtime invoke-endpoint \
     --endpoint-name $endpt_temp \
-    --body file://$image \
-    --content-type image/jpeg \
+    --body fileb://tiger.jpg \
+    --content-type application/x-image \
     --accept application/json \
     result.txt
 

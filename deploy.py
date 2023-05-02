@@ -8,7 +8,7 @@ role = os.environ['AWS_ROLE']
 
 # Hub Model configuration. https://huggingface.co/models
 hub = {
-	'HF_MODEL_ID':'microsoft/resnet-18',
+	'HF_MODEL_ID':'microsoft/swin-tiny-patch4-window7-224',
 	'HF_TASK':'image-classification'
 }
 

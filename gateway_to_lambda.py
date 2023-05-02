@@ -52,6 +52,7 @@ def predict():
         response_dict = json.loads(response["Payload"].read().decode("utf-8"))
         print(json.loads(response_dict.get('body')))
 
+
         return json.loads(response_dict.get('body'))
 
         # Parse the response JSON and return the prediction

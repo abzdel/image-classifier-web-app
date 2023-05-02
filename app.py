@@ -10,6 +10,7 @@ from PIL import Image
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
+
 def predict():
     if request.method == 'POST':
 
@@ -36,6 +37,8 @@ def predict():
         # Parse the response from the Lambda function
         response_dict = json.loads(response['Payload'].read().decode('utf-8'))
         #predictions = response_dict.get('predictions')
+
+        
 
         return json.loads(response_dict.get('body'))
 

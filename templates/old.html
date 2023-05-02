@@ -76,8 +76,7 @@
 	<div class="container">
 		<form method="POST" action="{{ url_for('predict') }}" enctype="multipart/form-data">
 			<label class="input-label" for="image-input">Select an image:</label>
-			<input class="input-field" type="file" name="image" id="image-input" onchange="previewImage(event)">
-			<img class="image-preview" id="image-preview" src="" style="display: none;">
+			<input class="input-field" type="file" name="image" id="image-input">
 			<button class="predict-button" type="submit">Predict</button>
 		</form>
 
@@ -87,12 +86,5 @@
 
         
 	</div>
-	<script>
-		function previewImage(event) {
-			var preview = document.getElementById('image-preview');
-			preview.style.display = 'block';
-			preview.src = URL.createObjectURL(event.target.files[0]);
-		}
-	</script>
 </body>
 </html>

@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Image Classification Results</title>
-  </head>
-  <body>
-    <h1>Image Classification Results</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Label</th>
-          <th>Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in results %}
-        <tr>
-          <td>{{ item.label }}</td>
-          <td>{{ item.score }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
+<head>
+	<title>Image Classifier Results</title>
+    <h1 style="text-align: center">Image Classifier Results</h1>
+
+	<style>
+		table {
+			border-collapse: collapse;
+			margin: auto;
+		}
+
+		th, td {
+			border: 1px solid black;
+			padding: 8px;
+			text-align: left;
+		}
+
+		th {
+			background-color: #dddddd;
+		}
+	</style>
+</head>
+<body>
+	<h1>Image Classifier Results</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Label</th>
+				<th>Score</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for prediction in results %}
+				<tr>
+					<td>{{ prediction.label }}</td>
+					<td>{{ '{:.4f}'.format(prediction.score) }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
 </html>

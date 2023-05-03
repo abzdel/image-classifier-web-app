@@ -53,7 +53,7 @@ def predict():
         predictions = json.loads(response_dict.get("body"))
 
         # return json.loads(response_dict.get('body'))
-        return render_template("preds.html", results=predictions)
+        return render_template("preds.html", results=predictions, image_src=request.form.get('image_src'))
         # return render_template('preds.html', results=response_dict.get('body'))
 
     # render the home template for GET requests

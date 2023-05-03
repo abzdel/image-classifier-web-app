@@ -8,4 +8,3 @@ pylint
 pytest
 pillow
 torch
-locust

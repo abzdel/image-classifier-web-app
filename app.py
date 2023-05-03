@@ -33,9 +33,9 @@ def predict():
         image_file = request.files["image"]
 
         # Check if file is a valid image
-        #if not allowed_file(image_file.filename):
+        # if not allowed_file(image_file.filename):
         #    return "Invalid file type"
-        
+
         image_data = image_file.read()
 
         # Encode the image data in base64 format
@@ -53,13 +53,16 @@ def predict():
         predictions = json.loads(response_dict.get("body"))
 
         # return json.loads(response_dict.get('body'))
-        return render_template("preds.html", results=predictions, image_src=request.form.get('image_src'))
+        return render_template(
+            "preds.html", results=predictions, image_src=request.form.get("image_src")
+        )
         # return render_template('preds.html', results=response_dict.get('body'))
 
     # render the home template for GET requests
     return render_template("index.html")
 
-@app.route('/health')
+
+@app.route("/health")
 def is_healthy():
     # for app runner health check error
     return True

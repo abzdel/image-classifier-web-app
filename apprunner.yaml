@@ -13,7 +13,7 @@ app:
       - AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET }}
       - AWS_ACCESS=${{ secrets.AWS_ACCESS }}
       - AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET }}
-    command: uvicorn app:app --host 0.0.0.0 --port 8080
+    command: gunicorn app:app -b 0.0.0.0:8080
     healthCheck:
       path: /health
       interval: 5 seconds

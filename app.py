@@ -59,6 +59,11 @@ def predict():
     # render the home template for GET requests
     return render_template("index.html")
 
+@app.route('/health')
+def is_healthy():
+    # for app runner health check error
+    return True
+
 
 if __name__ == "__main__":
     app.run(port=8080, debug=True)

@@ -8,4 +8,4 @@ pylint
 pytest
 pillow
 torch
-locust
+uvicorn

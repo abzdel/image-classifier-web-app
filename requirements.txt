@@ -1,4 +1,10 @@
 flask
 transformers
-torchvision
 sagemaker
+gunicorn
+black
+black[jupyter]
+pylint
+pytest
+pillow
+torch

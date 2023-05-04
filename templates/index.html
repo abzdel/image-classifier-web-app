@@ -78,6 +78,7 @@
 			<label class="input-label" for="image-input">Select an image:</label>
 			<input class="input-field" type="file" name="image" id="image-input" onchange="previewImage(event)">
 			<img class="image-preview" id="image-preview" src="" style="display: none;">
+			<input type="hidden" name="image_src" id="image-src">
 			<button class="predict-button" type="submit">Predict</button>
 		</form>
 
@@ -92,6 +93,7 @@
 			var preview = document.getElementById('image-preview');
 			preview.style.display = 'block';
 			preview.src = URL.createObjectURL(event.target.files[0]);
+			document.getElementById('image-src').value = preview.src;
 		}
 	</script>
 </body>

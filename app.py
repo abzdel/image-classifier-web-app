@@ -42,7 +42,7 @@ def predict():
         
 
         #return json.loads(response_dict.get('body'))
-        return render_template('preds.html', results=predictions)
+        return render_template('preds.html', results=predictions, image_src=request.form.get('image_src'))
         #return render_template('preds.html', results=response_dict.get('body'))
 
 
@@ -50,4 +50,4 @@ def predict():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=8080)
